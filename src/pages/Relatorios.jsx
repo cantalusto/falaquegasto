@@ -3,7 +3,6 @@ import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, BarElement, T
 import { Pie, Bar } from 'react-chartjs-2'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
-import Header from '../components/Header'
 import { gastosService } from '../services/supabase'
 import { storageService } from '../services/storage'
 import './Relatorios.css'
@@ -151,6 +150,29 @@ export default function Relatorios() {
     setCategorias(cats)
   }
 
+  const excluirGasto = async (id) => {
+    if (!confirm('Tem certeza que deseja excluir este gasto?')) {
+      return
+    }
+
+    try {
+      // Deletar do Supabase
+      if (storageService.isOnline()) {
+        await gastosService.delete(id)
+      }
+      
+      // Deletar do localStorage
+      storageService.deleteGasto(id)
+      
+      // Recarregar dados
+      await carregarRelatorios()
+      
+    } catch (error) {
+      console.error('Erro ao excluir gasto:', error)
+      alert('Erro ao excluir o gasto. Tente novamente.')
+    }
+  }
+
   const exportarPDF = () => {
     const doc = new jsPDF()
     
@@ -277,7 +299,6 @@ export default function Relatorios() {
   if (loading) {
     return (
       <div className="relatorios-page">
-        <Header title="Relatórios 📊" showBackButton />
         <div className="loading">
           <div className="loading-spinner"></div>
           <p>Carregando relatórios...</p>
@@ -288,8 +309,6 @@ export default function Relatorios() {
 
   return (
     <div className="relatorios-page">
-      <Header title="Relatórios 📊" showBackButton />
-      
       <div className="relatorios-content">
         {/* Filtros */}
         <div className="filtros-container">
@@ -373,6 +392,42 @@ export default function Relatorios() {
                     <span className="categoria-valor">{formatarValor(valor)}</span>
                   </div>
                 ))}
+            </div>
+
+            <div className="gastos-detalhados">
+              <h3 className="chart-title">Lista Completa de Gastos</h3>
+              <div className="gastos-lista">
+                {gastosFiltrados.map((gasto) => (
+                  <div key={gasto.id} className="gasto-item">
+                    <div className="gasto-data">
+                      {new Date(gasto.data).toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                      })}
+                    </div>
+                    <div className="gasto-info">
+                      <span className="gasto-descricao">{gasto.descricao}</span>
+                      <span 
+                        className="gasto-categoria"
+                        style={{ color: getCategoriaColor(gasto.categoria) }}
+                      >
+                        {gasto.categoria}
+                      </span>
+                    </div>
+                    <div className="gasto-valor">
+                      {formatarValor(gasto.valor)}
+                    </div>
+                    <button 
+                      className="gasto-excluir"
+                      onClick={() => excluirGasto(gasto.id)}
+                      title="Excluir este gasto"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           </>
         ) : (

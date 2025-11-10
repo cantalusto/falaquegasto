@@ -1,83 +1,93 @@
-# FalaQueGasto 💸
+# 💬 FalaQueGasto
 
-> Um PWA simples e intuitivo para registrar gastos por voz usando React, Vite, Supabase e Google Gemini.
+> App conversacional moderno para controle de gastos com chat inteligente, reconhecimento de voz e análise por IA.
 
 [![React](https://img.shields.io/badge/React-18-blue)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5-purple)](https://vitejs.dev/)
+[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-green)](https://supabase.com/)
+[![Gemini](https://img.shields.io/badge/Google-Gemini%20AI-orange)](https://ai.google.dev/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ---
 
-## 📚 Documentação Completa
+## ✨ Funcionalidades
 
-### 🎯 Comece Aqui
-- 🚀 **[QUICKSTART.md](QUICKSTART.md)** - Início rápido em 5 minutos ⭐
-- 📂 **[STRUCTURE.md](STRUCTURE.md)** - Estrutura completa do projeto
+- � **Interface Conversacional** - Chat intuitivo para registrar gastos
+- 🎤 **Reconhecimento de Voz** (experimental) - Fale seus gastos naturalmente
+- 🤖 **IA Inteligente** - Google Gemini interpreta suas mensagens
+- � **Relatórios Visuais** - Gráficos e análises detalhadas
+- 📅 **Visão Diária** - Acompanhe seus gastos de hoje
+- 🗑️ **Excluir Gastos** - Remova registros facilmente
+- 🌙 **Dark Theme** - Design moderno e agradável
+- � **PWA** - Instale como app nativo
+- � **Offline First** - Funciona sem internet
 
-### 📖 Guias Técnicos
-- 📖 **[PROJECT.md](PROJECT.md)** - Visão geral completa do projeto
-- 🛠️ **[SETUP.md](SETUP.md)** - Guia de configuração detalhado
-- 🌐 **[DEPLOY.md](DEPLOY.md)** - Deploy no Vercel passo a passo
-- 🧪 **[TESTING.md](TESTING.md)** - Guia de testes e QA
+---
 
-### 👨‍💼 Para o Usuário Final
-- 👨‍💼 **[MANUAL.md](MANUAL.md)** - Manual do usuário final
-- 💬 **[EXAMPLES.md](EXAMPLES.md)** - Exemplos de uso e frases
+## � Tecnologias
 
-### 🔧 Recursos Adicionais
-- 🎨 **[ICONS.md](ICONS.md)** - Geração de ícones PWA
-- 💾 **[database.md](database.md)** - Scripts SQL do Supabase
-- ✅ **[CHECKLIST.md](CHECKLIST.md)** - Checklist de implementação
-- 📝 **[CHANGELOG.md](CHANGELOG.md)** - Histórico de versões
+- **Frontend:** React 18 + Vite 5
+- **UI:** CSS Variables + Gradientes modernos
+- **Banco de Dados:** Supabase (PostgreSQL)
+- **IA:** Google Gemini 2.0 Flash
+- **Voz:** Web Speech API
+- **Gráficos:** Chart.js + react-chartjs-2
+- **PWA:** vite-plugin-pwa
 
 ---
 
 ## ⚡ Início Rápido
 
-```powershell
-# 1. Instalar dependências
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/falaquegasto.git
+cd falaquegasto
+
+# 2. Instale as dependências
 npm install
 
-# 2. Configurar .env (copie de .env.example)
-copy .env.example .env
-notepad .env
+# 3. Configure as variáveis de ambiente
+cp .env.example .env
+# Edite o .env com suas credenciais
 
-# 3. Rodar localmente
+# 4. Execute em desenvolvimento
 npm run dev
 
-# 4. Acessar
-# http://localhost:3000
+# 5. Acesse
+# http://localhost:5173
 ```
-
-**📖 Para setup completo, leia: [QUICKSTART.md](QUICKSTART.md)**
 
 ---
 
-## 🚀 Características
+## � Variáveis de Ambiente
 
-- ✅ **PWA** - Instalável no celular como aplicativo
-- 🎤 **Reconhecimento de voz** - Registre gastos falando
-- 🤖 **IA do Gemini** - Interpreta automaticamente descrição, valor e categoria
-- 💾 **Offline First** - Funciona sem internet e sincroniza quando voltar online
-- 📊 **Relatórios visuais** - Gráficos de pizza e barras por categoria
-- 🎨 **Design limpo** - Interface minimalista em azul claro e branco
+Crie um arquivo `.env` na raiz do projeto:
 
-## 📋 Pré-requisitos
+```env
+VITE_SUPABASE_URL=https://seu-projeto.supabase.co
+VITE_SUPABASE_ANON_KEY=sua_chave_anonima_aqui
+VITE_GEMINI_API_KEY=sua_chave_gemini_aqui
+```
 
-1. **Conta no Supabase** (gratuita)
-2. **Chave da API do Google Gemini** (gratuita)
-3. **Conta no Vercel** (gratuita)
+### � Como Obter as Credenciais
 
-## 🗄️ Configuração do Banco de Dados (Supabase)
+#### Supabase
+1. Crie uma conta em [supabase.com](https://supabase.com)
+2. Crie um novo projeto
+3. Vá em **Settings → API**
+4. Copie `Project URL` e `anon/public key`
 
-### 1. Criar conta no Supabase
-- Acesse [supabase.com](https://supabase.com)
-- Crie uma conta gratuita
-- Crie um novo projeto
+#### Google Gemini
+1. Acesse [ai.google.dev](https://ai.google.dev/)
+2. Clique em "Get API key"
+3. Crie uma chave de API
+4. Copie a chave gerada
 
-### 2. Criar a tabela `gastos`
+---
 
-No SQL Editor do Supabase, execute:
+## 🗄️ Banco de Dados (Supabase)
+
+Execute este SQL no **SQL Editor** do Supabase:
 
 ```sql
 CREATE TABLE gastos (
@@ -88,206 +98,196 @@ CREATE TABLE gastos (
   data TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Criar índice para melhorar performance
+-- Índice para performance
 CREATE INDEX idx_gastos_data ON gastos(data DESC);
 
--- Habilitar RLS (Row Level Security) - opcional para uso pessoal
+-- Habilitar RLS (opcional para uso pessoal)
 ALTER TABLE gastos ENABLE ROW LEVEL SECURITY;
 
--- Política para permitir todas as operações (uso pessoal)
-CREATE POLICY "Enable all operations for all users" ON gastos
-  FOR ALL USING (true);
+-- Permitir todas as operações
+CREATE POLICY "Enable all operations" ON gastos FOR ALL USING (true);
 ```
 
-### 3. Obter as credenciais
-
-No Supabase, vá em **Settings → API** e copie:
-- `Project URL` (será o `VITE_SUPABASE_URL`)
-- `anon/public` key (será o `VITE_SUPABASE_ANON_KEY`)
-
-## 🤖 Configuração da API do Google Gemini
-
-### 1. Obter a chave da API
-- Acesse [ai.google.dev](https://ai.google.dev/)
-- Clique em "Get API key"
-- Crie uma nova chave de API
-- Copie a chave (será o `VITE_GEMINI_API_KEY`)
-
-## 🛠️ Instalação Local
-
-### 1. Clone ou baixe o projeto
-
-```powershell
-cd c:\dev\falaquegasto
-```
-
-### 2. Instale as dependências
-
-```powershell
-npm install
-```
-
-### 3. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto:
-
-```env
-VITE_SUPABASE_URL=https://seu-projeto.supabase.co
-VITE_SUPABASE_ANON_KEY=sua_chave_anonima_aqui
-VITE_GEMINI_API_KEY=sua_chave_gemini_aqui
-```
-
-### 4. Execute o projeto localmente
-
-```powershell
-npm run dev
-```
-
-Acesse `http://localhost:3000` no navegador.
+---
 
 ## 🌐 Deploy no Vercel
 
-### 1. Instalar Vercel CLI (opcional)
+### 📦 Preparar o Projeto
 
-```powershell
-npm install -g vercel
+```bash
+# 1. Certifique-se de que o projeto está no GitHub
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/seu-usuario/falaquegasto.git
+git push -u origin main
 ```
 
-### 2. Deploy via CLI
+### 🚀 Deploy
 
-```powershell
-vercel
-```
+1. Acesse [vercel.com](https://vercel.com) e faça login
+2. Clique em **"Add New Project"**
+3. Importe o repositório do GitHub
+4. Configure as **Environment Variables**:
+   ```
+   VITE_SUPABASE_URL=sua_url_do_supabase
+   VITE_SUPABASE_ANON_KEY=sua_chave_anonima
+   VITE_GEMINI_API_KEY=sua_chave_gemini
+   ```
+5. Clique em **"Deploy"**
+6. Aguarde alguns minutos
+7. Seu app estará online! 🎉
 
-Siga as instruções interativas.
+### 🔄 Atualizações Automáticas
 
-### 3. Deploy via Dashboard (Recomendado)
+Após o deploy inicial, toda vez que você fizer push para o GitHub, o Vercel fará deploy automaticamente!
 
-1. Acesse [vercel.com](https://vercel.com)
-2. Crie uma conta (pode usar sua conta do GitHub)
-3. Clique em "Add New Project"
-4. Importe o repositório do GitHub ou faça upload do projeto
-5. Configure as variáveis de ambiente:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-   - `VITE_GEMINI_API_KEY`
-6. Clique em "Deploy"
+## 🎯 Como Usar
 
-### 4. Configurar domínio personalizado (opcional)
+### 💬 Página Chat
+1. Digite ou fale seu gasto naturalmente
+2. Exemplos:
+   - "almoço 35 reais"
+   - "comprei pão no mercado 8 reais"
+   - "uber 25 reais"
+3. O bot confirma e salva automaticamente
+4. Para excluir: passe o mouse sobre a confirmação e clique em 🗑️
 
-No Vercel Dashboard:
-- Vá em Settings → Domains
-- Adicione um domínio personalizado
+### 📅 Página Hoje
+- Veja todos os gastos do dia atual
+- Total do dia em destaque
+- Estatísticas (média, maior gasto)
+- Reseta automaticamente à meia-noite
+- Exclua gastos clicando em 🗑️
 
-## 📱 Instalação no Celular
+### 📊 Página Relatórios
+- Filtre por dia, mês ou ano
+- Gráficos de pizza e barras
+- Detalhamento por categoria
+- Lista completa de gastos com opção de excluir
+- Exporte para PDF
 
-### Android (Chrome)
-1. Abra o site no Chrome
-2. Toque no menu (⋮)
-3. Selecione "Adicionar à tela inicial"
-4. Confirme
+---
 
-### iOS (Safari)
-1. Abra o site no Safari
-2. Toque no botão de compartilhar
-3. Selecione "Adicionar à Tela de Início"
-4. Confirme
+## 📱 Instalar como App (PWA)
 
-## 🎤 Como Usar
+### Android
+1. Abra no Chrome
+2. Menu (⋮) → **"Adicionar à tela inicial"**
 
-### Registrar um gasto por voz:
-1. Clique no botão do microfone (🎤) no canto inferior direito
-2. Fale o gasto, por exemplo:
-   - "Comprei uma coca cola no mercado por 5 reais"
-   - "Gastei 10 reais com passagem de ônibus"
-   - "Pizza 40 reais"
-3. O app vai interpretar automaticamente e salvar
+### iOS
+1. Abra no Safari
+2. Compartilhar → **"Adicionar à Tela de Início"**
 
-### Ver relatórios:
-1. Clique no botão "📊 Relatórios"
-2. Veja o total do dia e do mês
-3. Visualize gráficos por categoria
+---
 
 ## 🏗️ Estrutura do Projeto
 
 ```
 falaquegasto/
 ├── src/
-│   ├── components/
-│   │   ├── Header.jsx
-│   │   ├── Header.css
-│   │   ├── MicButton.jsx
-│   │   ├── MicButton.css
-│   │   ├── GastosList.jsx
-│   │   └── GastosList.css
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Home.css
-│   │   ├── Relatorios.jsx
-│   │   └── Relatorios.css
-│   ├── services/
-│   │   ├── supabase.js
-│   │   ├── gemini.js
-│   │   ├── storage.js
-│   │   └── voice.js
-│   ├── App.jsx
-│   ├── App.css
-│   └── main.jsx
+│   ├── components/          # Componentes reutilizáveis
+│   │   ├── Header.jsx       # Navegação principal
+│   │   └── ...
+│   ├── pages/               # Páginas da aplicação
+│   │   ├── Chat.jsx         # Interface conversacional
+│   │   ├── Hoje.jsx         # Gastos do dia
+│   │   └── Relatorios.jsx   # Análises e gráficos
+│   ├── services/            # Integrações externas
+│   │   ├── supabase.js      # CRUD do banco
+│   │   ├── gemini.js        # IA para interpretação
+│   │   ├── voice.js         # Reconhecimento de voz
+│   │   └── storage.js       # Cache local
+│   ├── styles/              # Design system
+│   │   └── theme.css        # Variáveis CSS globais
+│   ├── App.jsx              # Rotas principais
+│   └── main.jsx             # Entry point
 ├── public/
+│   └── icon.svg             # Ícone do PWA
 ├── index.html
 ├── vite.config.js
-├── package.json
-├── vercel.json
-└── README.md
+├── vercel.json              # Config do Vercel
+└── package.json
 ```
-
-## 🔧 Tecnologias Utilizadas
-
-- **React 18** - Biblioteca JavaScript para UI
-- **Vite** - Build tool ultrarrápido
-- **React Router** - Roteamento
-- **Supabase** - Banco de dados PostgreSQL
-- **Google Gemini** - IA para interpretação de texto
-- **Chart.js** - Gráficos interativos
-- **Web Speech API** - Reconhecimento de voz
-- **Service Worker** - Cache offline
-- **LocalStorage** - Armazenamento local
-
-## 📝 Categorias Suportadas
-
-- 🍔 Alimentação
-- 🚌 Transporte
-- 💊 Saúde
-- 🎮 Lazer
-- 🛒 Mercado
-- 📄 Contas
-- 📦 Outros
-
-## 🐛 Solução de Problemas
-
-### Reconhecimento de voz não funciona
-- Use Chrome ou Edge (Safari tem suporte limitado)
-- Permita o acesso ao microfone quando solicitado
-- Verifique se o microfone está funcionando
-
-### Dados não sincronizam
-- Verifique sua conexão com a internet
-- Verifique se as credenciais do Supabase estão corretas
-- Veja o console do navegador (F12) para erros
-
-### Gemini não interpreta corretamente
-- Fale de forma clara e pausada
-- Tente incluir o valor em reais
-- Exemplo: "Comprei pão por 10 reais"
-
-## 📄 Licença
-
-Este projeto é de uso pessoal e educacional.
-
-## 🙏 Créditos
-
-Desenvolvido para facilitar o controle de gastos do dia a dia.
 
 ---
 
-**Feito com ❤️ usando React + Vite + Supabase + Gemini**
+## � Categorias de Gastos
+
+- 🍽️ **Alimentação** - Restaurantes, lanches, delivery
+- 🚗 **Transporte** - Uber, ônibus, gasolina
+- 🏥 **Saúde** - Remédios, consultas
+- 🎮 **Lazer** - Cinema, jogos, diversão
+- 📚 **Educação** - Cursos, livros
+- 🏠 **Moradia** - Aluguel, contas
+- � **Outros** - Diversos
+
+---
+
+## ⚠️ Observações Importantes
+
+### 🎤 Reconhecimento de Voz
+- **Status:** Experimental
+- **Funciona melhor em:** Chrome/Edge (desktop e mobile)
+- **Limitação:** Depende do Google Speech API (pode falhar)
+- **Alternativa:** Use sempre o campo de texto (mais rápido e confiável!)
+
+### 💡 Dica: Texto é Melhor que Voz!
+| Método | Velocidade | Confiabilidade | Privacidade |
+|--------|-----------|----------------|-------------|
+| 💬 Texto | ⚡ 3s | ✅ 100% | ✅ Alta |
+| 🎤 Voz | 🐌 15s | ⚠️ ~20% | ⚠️ Média |
+
+---
+
+## 🐛 Problemas Comuns
+
+### ❌ Voz não funciona
+**Solução:** Use o campo de texto! É mais rápido, preciso e sempre funciona.
+
+### ❌ Credenciais inválidas
+1. Verifique o `.env` ou variáveis no Vercel
+2. Confirme URLs do Supabase e chaves da API
+3. Teste as credenciais no console do Supabase
+
+### ❌ Build falha no Vercel
+1. Verifique se todas as dependências estão no `package.json`
+2. Confirme que as variáveis de ambiente estão configuradas
+3. Veja os logs de build no Vercel
+
+---
+
+## 📄 Licença
+
+MIT License - Livre para uso pessoal e educacional.
+
+---
+
+## 🤝 Contribuindo
+
+Pull requests são bem-vindos! Para mudanças importantes:
+1. Fork o projeto
+2. Crie uma branch (`git checkout -b feature/nova-funcionalidade`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/nova-funcionalidade`)
+5. Abra um Pull Request
+
+---
+
+## 📞 Suporte
+
+Encontrou um bug ou tem uma sugestão? 
+[Abra uma issue](https://github.com/seu-usuario/falaquegasto/issues)
+
+---
+
+<div align="center">
+
+**💬 FalaQueGasto** 
+
+Feito com ❤️ usando React + Vite + Supabase + Gemini AI
+
+⭐ Se este projeto te ajudou, deixe uma estrela!
+
+</div>

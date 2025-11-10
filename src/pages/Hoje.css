@@ -1,0 +1,326 @@
+/* 📅 HOJE - Gastos do Dia Atual */
+
+.hoje-container {
+  min-height: calc(100vh - 70px);
+  background: var(--bg-dark);
+  padding: var(--space-lg);
+  animation: fadeIn 0.4s ease;
+}
+
+/* Loading */
+.hoje-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 150px);
+  gap: var(--space-lg);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(102, 126, 234, 0.2);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Header do dia */
+.hoje-header {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideInLeft 0.5s ease;
+}
+
+.hoje-data h1 {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: var(--space-xs);
+}
+
+.hoje-data p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.hoje-total {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.hoje-total-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hoje-total-valor {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  background: var(--success-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Lista de gastos */
+.hoje-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+/* Item de gasto */
+.hoje-item {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  animation: slideInRight 0.4s ease;
+  border-left: 4px solid var(--cor-categoria);
+  cursor: pointer;
+}
+
+.hoje-item:hover {
+  background: var(--bg-card-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+
+.hoje-item-icone {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--cor-categoria), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.hoje-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.hoje-item-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.hoje-item-categoria {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.hoje-item-direita {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xs);
+}
+
+.hoje-item-valor {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hoje-item-hora {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-darker);
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Botão de excluir */
+.hoje-item-excluir {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  opacity: 0;
+  transform: scale(0.8);
+  margin-left: var(--space-md);
+  flex-shrink: 0;
+}
+
+.hoje-item:hover .hoje-item-excluir {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hoje-item-excluir:hover {
+  background: rgba(220, 38, 38, 1);
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.5);
+}
+
+.hoje-item-excluir:active {
+  transform: scale(0.95) !important;
+}
+
+/* Estado vazio */
+.hoje-vazio {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.hoje-vazio-icone {
+  font-size: 64px;
+  display: block;
+  margin-bottom: var(--space-lg);
+}
+
+.hoje-vazio h2 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.hoje-vazio p {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+/* Estatísticas */
+.hoje-stats {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  animation: slideInLeft 0.6s ease;
+}
+
+.hoje-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: var(--bg-input);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+}
+
+.hoje-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.hoje-stat-numero {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hoje-stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .hoje-container {
+    padding: var(--space-md);
+  }
+  
+  .hoje-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+  }
+  
+  .hoje-data h1 {
+    font-size: 28px;
+  }
+  
+  .hoje-total {
+    text-align: left;
+  }
+  
+  .hoje-total-valor {
+    font-size: 24px;
+  }
+  
+  .hoje-item {
+    padding: var(--space-md);
+  }
+  
+  .hoje-item-icone {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+  
+  .hoje-item-info h3 {
+    font-size: 15px;
+  }
+  
+  .hoje-item-valor {
+    font-size: 16px;
+  }
+  
+  .hoje-stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}

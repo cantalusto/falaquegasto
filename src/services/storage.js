@@ -36,6 +36,13 @@ export const storageService = {
     return novoGasto
   },
 
+  // Deletar gasto do cache local
+  deleteGasto(id) {
+    const gastos = this.getGastos()
+    const gastosAtualizados = gastos.filter(gasto => gasto.id !== id)
+    this.saveGastos(gastosAtualizados)
+  },
+
   // Fila de sincronização para quando voltar online
   addToSyncQueue(gasto) {
     try {

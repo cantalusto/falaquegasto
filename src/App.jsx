@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
+import Header from './components/Header'
+import Chat from './pages/Chat'
+import Hoje from './pages/Hoje'
 import Relatorios from './pages/Relatorios'
+import './styles/theme.css'
 import './App.css'
 
 function App() {
@@ -11,10 +14,16 @@ function App() {
         v7_relativeSplatPath: true
       }}
     >
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/relatorios" element={<Relatorios />} />
-      </Routes>
+      <div className="app">
+        <Header />
+        <main className="app-main">
+          <Routes>
+            <Route path="/" element={<Chat />} />
+            <Route path="/hoje" element={<Hoje />} />
+            <Route path="/relatorios" element={<Relatorios />} />
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   )
 }
