@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
 import { Pie, Bar } from 'react-chartjs-2'
 import jsPDF from 'jspdf'
-import 'jspdf-autotable'
+import autoTable from 'jspdf-autotable'
 import { gastosService } from '../services/supabase'
 import { storageService } from '../services/storage'
 import './Relatorios.css'
@@ -206,7 +206,7 @@ export default function Relatorios() {
       formatarValor(valor)
     ])
     
-    doc.autoTable({
+    autoTable(doc, {
       startY: 55,
       head: [['Categoria', 'Valor']],
       body: tabelaCategorias,
@@ -215,7 +215,8 @@ export default function Relatorios() {
     })
     
     // Tabela de gastos individuais
-    doc.text('Gastos Detalhados:', 14, doc.lastAutoTable.finalY + 10)
+    const finalYCategorias = doc.lastAutoTable ? doc.lastAutoTable.finalY : 55
+    doc.text('Gastos Detalhados:', 14, finalYCategorias + 10)
     
     const tabelaGastos = gastosFiltrados
       .sort((a, b) => new Date(b.data) - new Date(a.data))
@@ -226,8 +227,8 @@ export default function Relatorios() {
         formatarValor(gasto.valor)
       ])
     
-    doc.autoTable({
-      startY: doc.lastAutoTable.finalY + 15,
+    autoTable(doc, {
+      startY: finalYCategorias + 15,
       head: [['Data', 'Descrição', 'Categoria', 'Valor']],
       body: tabelaGastos,
       theme: 'striped',

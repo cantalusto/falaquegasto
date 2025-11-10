@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Favicon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+        }
+        h1 { color: #667eea; }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 20px;
+        }
+        button:hover { opacity: 0.9; }
+        canvas {
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+        }
+        .info {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>💸 Gerador de Favicon</h1>
+    <p>Clique no botão para gerar o favicon do FalaQueGasto</p>
+    
+    <canvas id="canvas" width="32" height="32"></canvas>
+    
+    <button onclick="gerarFavicon()">🎨 Gerar favicon.ico</button>
+    
+    <div class="info">
+        <h3>📝 Instruções:</h3>
+        <ol style="text-align: left;">
+            <li>Clique em "Gerar favicon.ico"</li>
+            <li>O arquivo será baixado automaticamente</li>
+            <li>Salve na pasta <code>public/</code></li>
+            <li>Limpe o cache do navegador (Ctrl+Shift+Del)</li>
+            <li>Recarregue a página (Ctrl+F5)</li>
+        </ol>
+    </div>
+
+    <script>
+        function gerarFavicon() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Limpar canvas
+            ctx.clearRect(0, 0, 32, 32);
+            
+            // Fundo gradiente roxo
+            const gradient = ctx.createLinearGradient(0, 0, 32, 32);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 32, 32);
+            
+            // Emoji 💸 centralizado
+            ctx.font = '20px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('💸', 16, 16);
+            
+            // Converter para PNG e baixar
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'favicon.ico';
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                alert('✅ Favicon gerado!\n\nSalve o arquivo na pasta public/\nDepois limpe o cache do navegador (Ctrl+Shift+Del)');
+            }, 'image/png');
+        }
+        
+        // Gerar preview ao carregar
+        window.onload = () => {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const gradient = ctx.createLinearGradient(0, 0, 32, 32);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 32, 32);
+            
+            ctx.font = '20px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('💸', 16, 16);
+        };
+    </script>
+</body>
+</html>
