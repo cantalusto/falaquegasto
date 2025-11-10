@@ -46,14 +46,23 @@ function interpretarLocal(texto) {
     .replace(/\s+/g, ' ')                           // múltiplos espaços
     .replace(/[,;.]\s*$/g, '')                      // vírgulas, ponto-vírgula, pontos no final
     .replace(/^\s*[,;.]\s*/g, '')                   // vírgulas, ponto-vírgula, pontos no início
-    .replace(/^\s*(no|na|em|de|do|da)\s*/i, '')    // preposições no início
-    .replace(/\s*(brl|r\$|reais?)\s*[.,;]?\s*$/gi, '') // remover BRL, R$, reais no final
+    .replace(/^\s*(no|na|em|de|do|da|com|para)\s*/i, '') // preposições no início
+    .replace(/\s*(brl|r\$|reais?)\s*/gi, ' ')      // remover BRL, R$, reais em qualquer lugar
+    .replace(/\s+/g, ' ')                           // limpar espaços extras novamente
     .replace(/[,;.]\s*$/g, '')                      // remover pontuação final novamente
     .trim()
   
-  // Capitalizar primeira letra
+  // Capitalizar primeira letra de cada palavra importante
   if (descricao) {
-    descricao = descricao.charAt(0).toUpperCase() + descricao.slice(1).toLowerCase()
+    descricao = descricao
+      .split(' ')
+      .map(palavra => {
+        if (palavra.length > 2) { // palavras com mais de 2 letras
+          return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase()
+        }
+        return palavra.toLowerCase()
+      })
+      .join(' ')
   }
   
   // Se ficou vazio, usar texto original
@@ -95,18 +104,27 @@ export const geminiService = {
     if (GEMINI_API_KEY) {
       const prompt = `
 Você é um assistente que interpreta gastos falados por uma pessoa.
-Analise o texto a seguir e retorne APENAS um objeto JSON válido (sem markdown, sem explicações) com os campos:
-- descricao (string): descrição do que foi comprado
-- valor (number): valor em reais (apenas o número, ex: 5.50)
-- categoria (string): categoria do gasto (escolha entre: alimentacao, transporte, saude, lazer, mercado, contas, outros)
+Analise o texto e retorne APENAS um objeto JSON válido (sem markdown, sem explicações) com:
 
-Texto: "${texto}"
+- descricao (string): APENAS o nome do item/serviço comprado, SEM incluir moeda, valor, "reais", "BRL" ou outras palavras relacionadas a dinheiro. Seja conciso e objetivo.
+- valor (number): valor numérico em reais (ex: 50.00)
+- categoria (string): escolha entre: alimentacao, transporte, saude, lazer, mercado, contas, outros
 
-Exemplos de resposta esperada:
-{"descricao": "coca cola no supermercado", "valor": 5.0, "categoria": "mercado"}
-{"descricao": "passagem de ônibus", "valor": 4.50, "categoria": "transporte"}
+Texto do usuário: "${texto}"
 
-Responda APENAS com o JSON, sem formatação markdown:
+EXEMPLOS CORRETOS:
+Entrada: "50 reais em lanche"
+Saída: {"descricao": "Lanche", "valor": 50.0, "categoria": "alimentacao"}
+
+Entrada: "gastei 35 reais com uber"
+Saída: {"descricao": "Uber", "valor": 35.0, "categoria": "transporte"}
+
+Entrada: "comprei coca cola por 5 reais"
+Saída: {"descricao": "Coca cola", "valor": 5.0, "categoria": "alimentacao"}
+
+IMPORTANTE: Na descrição, NUNCA inclua palavras como "reais", "brl", "R$" ou menções ao valor/moeda.
+
+Responda APENAS com o JSON:
 `
 
       try {
