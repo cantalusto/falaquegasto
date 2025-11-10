@@ -265,20 +265,15 @@ export default function Chat() {
 
       {/* Área de input */}
       <form className="chat-input-area" onSubmit={handleEnviarTexto}>
-        <div className="btn-microfone-wrapper">
-          <button
-            type="button"
-            className={`btn-microfone ${isRecording ? 'gravando' : ''}`}
-            onClick={handleGravarAudio}
-            disabled={isProcessing}
-            title={isRecording ? 'Gravando... Clique para parar' : '🎤 Voz (experimental)\n\n⚠️ Pode não funcionar\n✅ Use texto para garantir'}
-          >
-            {isRecording ? '🔴' : '🎤'}
-          </button>
-          {!isRecording && !isProcessing && (
-            <span className="microfone-badge">⚠️</span>
-          )}
-        </div>
+        <button
+          type="button"
+          className={`btn-microfone ${isRecording ? 'gravando' : ''}`}
+          onClick={handleGravarAudio}
+          disabled={isProcessing}
+          title={isRecording ? 'Gravando... Clique para parar' : 'Gravar áudio'}
+        >
+          {isRecording ? '🔴' : '🎤'}
+        </button>
 
         <input
           ref={inputRef}
