@@ -1,0 +1,129 @@
+.gastos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 100px;
+}
+
+.gasto-item {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.gasto-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.gasto-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.gasto-categoria {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+.categoria-emoji {
+  font-size: 16px;
+}
+
+.categoria-nome {
+  text-transform: capitalize;
+}
+
+.gasto-hora {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.gasto-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gasto-descricao {
+  font-size: 15px;
+  color: #333;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.gasto-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.gasto-valor {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4682B4;
+}
+
+.gasto-delete {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.gasto-delete:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.gasto-sync-status {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+/* Lista vazia */
+.gastos-list-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: #666;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.gastos-list-empty p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.empty-hint {
+  font-size: 14px;
+  color: #999;
+  max-width: 250px;
+}

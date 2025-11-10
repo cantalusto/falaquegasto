@@ -1,0 +1,131 @@
+.home-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f0f9ff 0%, #ffffff 100%);
+}
+
+.home-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 140px; /* Espaço para input fixo + mic button */
+}
+
+.status-bar {
+  margin-bottom: 16px;
+}
+
+.offline-badge {
+  display: inline-block;
+  background: #ffd93d;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.total-card {
+  background: linear-gradient(135deg, #87CEEB, #4682B4);
+  color: white;
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(70, 130, 180, 0.3);
+  margin-bottom: 24px;
+}
+
+.total-label {
+  display: block;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.total-valor {
+  display: block;
+  font-size: 36px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+  font-weight: 700;
+}
+
+.btn-relatorios {
+  background: white;
+  color: #4682B4;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  border: 2px solid #87CEEB;
+}
+
+.btn-relatorios:hover {
+  background: #87CEEB;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #87CEEB;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading p {
+  margin: 0;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .total-valor {
+    font-size: 28px;
+  }
+  
+  .actions-bar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .btn-relatorios {
+    text-align: center;
+  }
+}
