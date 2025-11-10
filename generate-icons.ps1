@@ -1,26 +1,74 @@
-# Script para gerar ícones PWA
-# Execute este script para criar os ícones necessários
+# Script para gerar ícones PWA do emoji 💸
+# Este script cria ícones PNG a partir do emoji usando HTML Canvas
 
-# Este é um arquivo de exemplo. Para gerar os ícones reais, você pode:
+$html = @"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Ícones</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        function generateIcon(size, filename) {
+            const canvas = document.getElementById('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Fundo gradiente
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Emoji
+            ctx.font = (size * 0.6) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('💸', size/2, size/2);
+            
+            // Download
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        // Gerar ícones
+        setTimeout(() => generateIcon(192, 'icon-192.png'), 100);
+        setTimeout(() => generateIcon(512, 'icon-512.png'), 500);
+        setTimeout(() => alert('Ícones gerados! Salve na pasta public/'), 1000);
+    </script>
+</body>
+</html>
+"@
 
-# 1. Usar um serviço online como:
-#    - https://realfavicongenerator.net/
-#    - https://www.pwabuilder.com/imageGenerator
+# Criar arquivo HTML temporário
+$tempFile = "$PSScriptRoot\temp-icon-generator.html"
+$html | Out-File -FilePath $tempFile -Encoding UTF8
 
-# 2. Ou usar ImageMagick localmente:
-#    convert icon.svg -resize 192x192 pwa-192x192.png
-#    convert icon.svg -resize 512x512 pwa-512x512.png
-
-# Por enquanto, você pode usar emojis ou criar ícones simples
-
-Write-Host "Para gerar ícones PWA profissionais:"
-Write-Host "1. Acesse: https://realfavicongenerator.net/"
-Write-Host "2. Faça upload do arquivo 'public/icon.svg'"
-Write-Host "3. Baixe os ícones gerados"
-Write-Host "4. Coloque-os na pasta 'public/'"
+Write-Host "🎨 Abrindo gerador de ícones no navegador..." -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Ícones necessários:"
-Write-Host "  - pwa-192x192.png"
-Write-Host "  - pwa-512x512.png"
-Write-Host "  - apple-touch-icon.png (180x180)"
-Write-Host "  - favicon.ico"
+Write-Host "📝 Instruções:" -ForegroundColor Yellow
+Write-Host "1. Dois arquivos serão baixados: icon-192.png e icon-512.png"
+Write-Host "2. Mova os arquivos para a pasta 'public/'"
+Write-Host "3. Feche o navegador quando terminar"
+Write-Host ""
+
+# Abrir no navegador
+Start-Process $tempFile
+
+# Aguardar usuário
+Write-Host "Pressione qualquer tecla após salvar os ícones para limpar o arquivo temporário..."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
+# Limpar
+Remove-Item $tempFile -ErrorAction SilentlyContinue
+Write-Host "✅ Concluído!" -ForegroundColor Green

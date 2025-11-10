@@ -10,7 +10,7 @@ export default function Chat() {
     {
       id: 1,
       tipo: 'bot',
-      texto: '👋 Olá! Sou o FalaQueGasto! Pode me falar ou digitar seus gastos que eu registro tudo pra você! 💰',
+      texto: '👋 Olá! Sou o FalaQueGasto!\n\n✏️ Digite seus gastos que eu registro tudo pra você! 💰\n\nExemplos:\n• "almoço 35 reais"\n• "uber 25"\n• "café 8 reais"\n\n🎤 Você também pode usar o modo de fala (experimental - pode não funcionar)',
       timestamp: new Date()
     }
   ])
